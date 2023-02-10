@@ -1,6 +1,6 @@
 <template>
   <div>
-    Settings
+    CityListSettings
   </div>
 </template>
 
@@ -8,9 +8,8 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "HelloWorld",
-  props: {
-    msg: String,
-  },
+  name: "CityListSettings",
+
+
 });
 </script>

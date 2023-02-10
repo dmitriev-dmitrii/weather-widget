@@ -1,25 +1,20 @@
 <template>
   <div>
-    <h1>
-      {{name}}
-    </h1>
 
+ <CityList/>
+  <Settings/>
   </div>
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue'
-
+import CityList from '@/components/CityList/Index.vue'
+import Settings from '@/components/Settings/Index.vue'
 export default defineComponent({
-  data: function() {
-    return {
-      name: 'Hello World!!',
-    }
+  components: {
+    CityList,
+    Settings,
   },
 });
 </script>
 
-<!--<style lang="scss">-->
-<!--h1 {-->
-<!--  color: dodgerblue;-->
-<!--}-->
-<!--</style>-->
+
