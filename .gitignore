@@ -4,10 +4,6 @@
 # macOS
 .DS_Store
 
-# dotenv environment variables file
-.env
-
-
 package-lock.json
 
 dist/*
