@@ -15,5 +15,30 @@
   "bugs": {
     "url": "https://github.com/dmitriev-dmitrii/weather-widget/issues"
   },
-  "homepage": "https://github.com/dmitriev-dmitrii/weather-widget#readme"
+  "homepage": "https://github.com/dmitriev-dmitrii/weather-widget#readme",
+  "devDependencies": {
+    "@babel/core": "^7.20.12",
+    "@babel/preset-env": "^7.20.2",
+    "autoprefixer": "^10.4.13",
+    "babel-loader": "^9.1.2",
+    "css-loader": "^6.7.3",
+    "dotenv": "^16.0.3",
+    "html-webpack-plugin": "5.5.0",
+    "mini-css-extract-plugin": "^2.7.2",
+    "postcss-loader": "^7.0.2",
+    "sass-loader": "^13.2.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.5",
+    "vue-loader": "^17.0.1",
+    "vue-template-compiler": "^2.7.14",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1",
+    "webpack-dev-server": "^4.11.1",
+    "lodash": "^4.17.21"
+  },
+  "dependencies": {
+    "vue": "3.2.45",
+    "vue-router": "4.1.6",
+    "vuex": "4.1.0"
+  }
 }
