@@ -3,6 +3,7 @@
     <h1>
       {{name}}
     </h1>
+
   </div>
 </template>
 <script lang="ts">
@@ -11,7 +12,7 @@ import { defineComponent } from 'vue'
 export default defineComponent({
   data: function() {
     return {
-      name: 'Hello World!',
+      name: 'Hello World!!',
     }
   },
 });

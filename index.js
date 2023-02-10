@@ -1,6 +1,4 @@
-import App from './src/App.ts'
-
-import { createApp } from 'vue';
+import  './src/App.ts'
 
 
-createApp(App).mount("#app");
+

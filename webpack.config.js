@@ -15,16 +15,19 @@ module.exports = ({mode}) => {
     return {
     entry: './index.js',
      mode: isProdMode ? 'production' : 'development',
+      devtool: "source-map",
+      output: {
+        filename: isProdMode ? '[contenthash:9].js' : '[name].js',
+        publicPath: '/',
+        clean: true
+      },
   devServer: {
     historyApiFallback: true,
     compress: true,
     port: dotenv.PORT,
   },
 
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: isProdMode ? '[contenthash:7].js' : '[name].js',
-  },
+
   module: {
     rules: [
       {
@@ -69,7 +72,17 @@ module.exports = ({mode}) => {
       hash: isProdMode,
       inject: 'body',
     }),
-  ]
+
+    new DefinePlugin({
+      __VUE_OPTIONS_API__: isDevMode,
+      __VUE_PROD_DEVTOOLS__: isDevMode
+    }),
+  ],
+      optimization: {
+        concatenateModules: isProdMode,
+        mangleExports: isProdMode,
+        minimize: isProdMode,
+      }
 }}
 
 
