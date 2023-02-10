@@ -1,0 +1,19 @@
+{
+  "name": "weather-widget",
+  "version": "1.0.0",
+  "description": "weather-widget-vue-js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmitriev-dmitrii/weather-widget.git"
+  },
+  "author": "dmitriev-dmitrii",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dmitriev-dmitrii/weather-widget/issues"
+  },
+  "homepage": "https://github.com/dmitriev-dmitrii/weather-widget#readme"
+}
