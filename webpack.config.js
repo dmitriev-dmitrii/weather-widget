@@ -18,7 +18,6 @@ module.exports = ({mode}) => {
       devtool: "source-map",
       output: {
         filename: isProdMode ? '[contenthash:9].js' : '[name].js',
-        publicPath: '/',
         clean: true
       },
   devServer: {
