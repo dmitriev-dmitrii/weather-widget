@@ -34,6 +34,18 @@ module.exports = ({mode}) => {
         loader: 'vue-loader'
       },
       {
+        test: /\.(sa|sc|c)ss$/,
+        use: [
+          isDevMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          "css-loader",
+          "postcss-loader",
+          {
+            loader: "sass-loader",
+            // options: { additionalData: `@import "./src/scss/common/vars.scss";` }
+          }
+        ],
+      },
+      {
         test: /\.js$/,
         use: 'babel-loader',
         exclude: /node_modules/

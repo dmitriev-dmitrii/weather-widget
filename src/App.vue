@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="weather-widget">
 
- <CityList/>
+  <CityList/>
   <Settings/>
   </div>
 </template>
@@ -16,5 +16,11 @@ export default defineComponent({
   },
 });
 </script>
+
+<style  lang="scss">
+.weather-widget {
+  color: red;
+}
+</style>
 
 
