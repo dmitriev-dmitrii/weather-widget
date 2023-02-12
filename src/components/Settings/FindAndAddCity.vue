@@ -1,13 +1,16 @@
 <template>
   <form @submit.prevent="sendSearchRequest">
 
-    <fieldset><div>add location</div>
+    <fieldset>
+      <legend>add location</legend>
+
     <input v-model="searchQuery" @input="sendSearchRequest" type="search"/>
+
       <div  v-show=searchQuery :class="{'active': searchQuery }">
 
-        <div v-if="formLoading"> loading... </div>
+        <div v-show="formLoading"> loading... </div>
 
-        <div v-if="Object.keys(searchResult).length && !formLoading">
+        <div v-if="!formLoading && Object.keys(searchResult).length  ">
 
           <span>{{searchResult.name}}</span> <button type="button" @click="addCity">add</button>
 
@@ -21,7 +24,6 @@
 
     </fieldset>
   </form>
-
 
 
 </template>
@@ -59,9 +61,8 @@ export default {
         this.formMessage = ''
         this.formLoading = true
 
-
         const res = await this.getWeatherByCityName( this.searchQuery );
-        // const res = await this.getWeatherByCityName( this.searchQuery );
+
         this.searchResult = _get(res,'data',{})
 
       } catch (err) {
@@ -111,6 +112,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
+
+input[type="search"],
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+  appearance:none;
+}
 
 </style>

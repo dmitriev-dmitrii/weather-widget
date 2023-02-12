@@ -1,9 +1,8 @@
 
 
 <template>
-  Settings
   <FindAndAddCity/>
-  <CityListSettings/>
+<!--  <CityListSettings/>-->
 </template>
 
 <script lang="ts">
