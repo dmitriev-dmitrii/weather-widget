@@ -13,7 +13,7 @@
         <div v-if="!formLoading && searchResult.length ">
 
           <div v-for="(item,index) in searchResult" :key="item.id">
-           {{index}} {{item.name}} [{{item.country}}]
+            {{item.name}} [{{item.country}}]  {{item.weather.temperature}} ℃
             <button type="button" @click="addCity(index)">add</button>
           </div>
 
@@ -54,7 +54,7 @@ export default defineComponent({
       'findByCityName',
     ]),
     ...mapMutations('weather', [
-      'addCityToList',
+      'addOrUpdateCity',
     ]),
 
     sendSearchRequest : async function () {
@@ -87,7 +87,7 @@ export default defineComponent({
 
         const errStatus : any =  _get( err ,'response.status' , 0 )
 
-        if ( errStatus === 404  ) {
+        if (( errStatus === 404)|| ( errStatus === 400)  ) {
           this.formMessage = `city '${this.searchQuery}' not found`
           return
         }
@@ -113,7 +113,7 @@ export default defineComponent({
     },
     addCity : function (index :number) {
 
-      this.addCityToList( this.searchResult[index] )
+      this.addOrUpdateCity( this.searchResult[index] )
 
     },
 

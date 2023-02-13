@@ -16,6 +16,8 @@
 import { defineComponent } from 'vue'
 import CityList from '@/components/CityList/Index.vue'
 import Settings from '@/components/Settings/Index.vue'
+import {mapActions, mapMutations} from "vuex";
+
 export default defineComponent({
   components: {
     CityList,
@@ -37,6 +39,16 @@ export default defineComponent({
         }
       ],
     }
+  },
+  methods:{
+
+      ...mapActions('weather',[
+        'getCityListWeather',
+      ]),
+    },
+
+  created() {
+    this.getCityListWeather()
   },
   computed: {
 

@@ -23,6 +23,9 @@ export default defineComponent({
   },
   components:{
     CityItem
+  },
+  created() {
+
   }
 });
 </script>

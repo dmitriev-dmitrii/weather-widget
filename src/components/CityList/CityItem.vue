@@ -1,23 +1,45 @@
 <template>
-  <li>
+<div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
     <div>
-      {{city.name}} [{{city.country}}]
+      <div>{{city.name}} [{{city.country}}]</div>
+      <div> last updated at : {{ city.lastUpdated }}</div>
     </div>
-     {{parseInt(weather.temperature,10)}} ℃
+
+  <div>
+    <div v-if="city.loading">  loading ... </div>
+    <div v-else>
+<!--      <figure>-->
+<!--      <img :src="`http://openweathermap.org/img/wn/${cityItem.weather.icon}@2x.png`" :alt="`${cityItem.name}weather-image`">-->
+<!--      <figcaption>-->
+<!--        {{cityItem.weather.description }}-->
+<!--      </figcaption>-->
+<!--      </figure>-->
+
+   <div>
      <div>
-        feels like : {{parseInt(weather.temperatureFeelsLike,10)}} ℃
+     temperature : {{weather.temperature}} ℃
      </div>
+     <div>
+     feels like :  {{weather.temperatureFeelsLike}} ℃
+   </div>
+     <div>
+     visibility {{ weather.visibility  }} km
+    </div>
+   </div>
+    </div>
+
+  </div>
+
+</div>
+  <hr>
+
     
-  </li>
+
 
 <!-- 
   <div>
     <figure>
-      <img :src="`http://openweathermap.org/img/wn/${cityItem.weather.icon}@2x.png`" :alt="`${cityItem.name}weather-image`">
-      <figcaption>
-        {{cityItem.weather.description }}
-      </figcaption>
-    </figure>
+
 
   </div>
 
@@ -49,8 +71,19 @@ export default defineComponent({
     const city = _pick (props.cityItem , ['name' ,
     'country',
     'id',
+      'loading'
+,'lastUpdated'
     ])
-    const weather = _get (props,'cityItem.weather' , { } )
+
+    city.lastUpdated =  new Date(city.lastUpdated).toLocaleTimeString().slice(0,-3);
+
+    const weather = _get (props,'cityItem.weather' , {
+
+    } )
+
+    weather.temperature =  parseInt(weather.temperature,10);
+    weather.temperatureFeelsLike = parseInt(weather.temperature,10);
+    weather.visibility  =  (weather.visibility / 1000 ).toFixed(1);
 
     return { city , weather }
   },

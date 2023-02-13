@@ -7,5 +7,9 @@ import axios from "axios";
 export const weatherApi = {
     getByCityName:(cityName='') : any => {
         return axios.get(`${apiUrl}find?q=${cityName}&appid=${apiKey}&units=metric`)
-    }
+    },
+    getById:(id : number) : any => {
+        return axios.get(`${apiUrl}weather?id=${id}&appid=${apiKey}&units=metric`)
+    },
+
 }

@@ -4,7 +4,8 @@ type CityItem  = {
     country: string,
     id: number,
     order:number,
-
+    lastUpdated: number
+    loading: boolean
     weather: {
 
         icon:string,
