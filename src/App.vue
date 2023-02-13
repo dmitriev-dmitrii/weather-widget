@@ -1,7 +1,7 @@
 <template>
 <div class="weather-widget">
   <div class="weather-widget_tab-list">
-    <button class="weather-widget_tab-list_item" @click="currentTabComponent = 'CityList'">City List</button>
+    <button class="weather-widget_tab-list_item" @click="currentTabComponent = 'CityList'">CityItem List</button>
     <button class="weather-widget_tab-list_item settings" @click="currentTabComponent = 'Settings'"> S </button>
   </div>
   <keep-alive>
@@ -27,7 +27,7 @@ export default defineComponent({
       tabsArr:[
         {
           name:'CityList',
-          title:'City List',
+          title:'CityItem List',
           class:'weather-widget_city-list-btn'
         },
         {

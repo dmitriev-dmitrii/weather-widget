@@ -17,7 +17,7 @@ export default {
         }
     },
     actions: {
-        getWeatherByCityName:async function (context:any,payload:any)  {
+        findByCityName:async function (context:any,payload:any)  {
 
             return  await weatherApi.getByCityName(payload);
 
