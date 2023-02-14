@@ -36,7 +36,7 @@
 import {mapActions, mapMutations} from "vuex";
 import _debounce from 'lodash/debounce';
 import _get from 'lodash/get';
-import cityItemParser from '@/utils/cityItemParser';
+import cityItemResponseParser from '@/utils/cityItemResponseParser';
 import {defineComponent} from "vue";
 import CityItem from "@/types/CityItem";
 export default defineComponent({
@@ -75,7 +75,7 @@ export default defineComponent({
 
         const res :any = await this.findByCityName( this.searchQuery ) ;
 
-        this.searchResult =   _get(res,'data.list',[]).map(cityItemParser);
+        this.searchResult =   _get(res,'data.list',[]).map(cityItemResponseParser);
 
          if ( !this.searchResult.length) {
            this.formMessage = `city '${this.searchQuery}' not found`
