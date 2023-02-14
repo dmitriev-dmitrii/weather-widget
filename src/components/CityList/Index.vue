@@ -1,7 +1,14 @@
 <template>
   <div>
 
-    <div v-if="!sortedCityList.length">not data </div>
+    <div v-if="!sortedCityList.length">
+
+     you dont have any  city , y can try
+
+     <FindUserLocation/>
+
+    </div>
+
     <CityItem v-else :city-item="item" v-for="item in sortedCityList" :key="item"/>
 
   </div>
@@ -11,6 +18,7 @@
 import { defineComponent } from "vue";
 import CityItem from './CityItem.vue';
 import { mapGetters} from "vuex";
+import FindUserLocation from "@/components/Settings/FindUserLocation.vue";
 
 export default defineComponent({
   name: "CityList",
@@ -18,14 +26,12 @@ export default defineComponent({
 
     ...mapGetters('weather',[
       'sortedCityList',
-      // 'anotherGetter',
     ])
   },
   components:{
+    FindUserLocation,
     CityItem
   },
-  created() {
 
-  }
 });
 </script>

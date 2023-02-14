@@ -5,7 +5,7 @@ import _get from 'lodash/get';
 
 import CityItem from "@/types/CityItem";
 import localStorageCityList from "@/utils/localStorageCityList";
-import cityItemParser from "@/utils/cityItemParser";
+import cityItemResponseParser from "@/utils/cityItemResponseParser";
 
 export default {
     namespaced: true,
@@ -47,8 +47,32 @@ else {
         }
     },
     actions: {
+        addCityByUserLocation: async function (context:any ){
 
-        findByCityName:async function (context:any,payload:any)  {
+
+                const geoData:any = await   new Promise((resolve, reject) : any => {
+                    const  successCallBack = (geoData:any) => {
+                        resolve(geoData.coords)
+                    }
+
+                    const  errCallBack = (err:any) => {
+                         reject ( err )
+                    }
+                    navigator.geolocation.getCurrentPosition( successCallBack, errCallBack );
+
+                })
+
+                const { latitude  , longitude } =  geoData
+
+                const res = await weatherApi.getByLocation( latitude  ,longitude)
+
+                context.commit('addOrUpdateCity', cityItemResponseParser(res.data) );
+
+
+
+        },
+
+        findByCityName:async function (context:any,payload:string)  {
 
             return  await weatherApi.getByCityName(payload);
 
@@ -64,8 +88,6 @@ else {
                 return
             }
 
-
-
             for  ( const  item  of savedCityArr   ) {
 
                 item.loading = true;
@@ -73,7 +95,7 @@ else {
 
                 const res = await weatherApi.getById(item.id);
 
-                const updatedItem =  cityItemParser(  _get (res,'data', item ) )
+                const updatedItem =  cityItemResponseParser(  _get (res,'data', item ) )
                 updatedItem.loading = false
 
                 context.commit('addOrUpdateCity', updatedItem );
@@ -94,7 +116,7 @@ else {
             //
             // resArr.forEach((res)=>{
             //     console.log(res.data)
-            //  context.commit('addOrUpdateCity', cityItemParser(res.data) );
+            //  context.commit('addOrUpdateCity', cityItemResponseParser(res.data) );
             // });
 
             // console.log('resArr',resArr);
