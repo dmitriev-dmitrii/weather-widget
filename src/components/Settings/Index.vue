@@ -1,8 +1,8 @@
 
 
 <template>
-  <CityListSettings/>
   <FindAndAddCity/>
+  <CityListSettings/>
 
 </template>
 

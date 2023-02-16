@@ -1,3 +1,5 @@
+import CityItem from "@/types/CityItem";
+
 const storageKey = 'CityList';
 
 
@@ -13,7 +15,18 @@ const storageKey = 'CityList';
     },
 
     save: function ( data = [] ) :[] {
+
         localStorage.setItem( storageKey, JSON.stringify(data) );
+
+        if ( data.length > 1) {
+            data.sort( ( a:CityItem , b:CityItem  )=>{
+                return a.order - b.order
+            }).map((item :CityItem,index:number)=>{
+                item.order = index
+                return item
+            })
+        }
+
         return this.get()
     }
 
