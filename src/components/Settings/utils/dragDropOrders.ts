@@ -6,7 +6,6 @@ if (!dragListWrapper) {
     return
 }
 
-dragListWrapper.classList.add('drag__item-list')
 dragListWrapper.addEventListener('dragstart',itemDragStarted);
 dragListWrapper.addEventListener('dragend', itemDragEnd);
 
@@ -22,7 +21,7 @@ let currentItemDrag = {
 };
 
 function itemDragStarted(event : any) {
-    console.log(event.target)
+
     if (!event.target.dataset.order) {
         event.preventDefault();
         return
