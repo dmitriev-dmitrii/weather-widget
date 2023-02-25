@@ -7,7 +7,7 @@ const store = createStore(storeModules)
 
 import App from './App.vue';
 import { createApp } from "vue";
-createApp(App).use(store).mount("#app")
+createApp(App).use(store).mount("weather-widget")
 
 
 

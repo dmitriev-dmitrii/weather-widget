@@ -1,7 +1,8 @@
 <template>
+
 <div class="weather-widget">
   <div class="weather-widget_tab-list">
-    <button class="weather-widget_tab-list_item" @click="currentTabComponent = 'CityList'">CityItem List</button>
+    <button class="weather-widget_tab-list_item city-list" @click="currentTabComponent = 'CityList'">CityItem List</button>
     <button class="weather-widget_tab-list_item settings" @click="currentTabComponent = 'Settings'"> S </button>
   </div>
   <keep-alive>
@@ -9,14 +10,13 @@
   </keep-alive>
 </div>
 
-
 </template>
 <script lang="ts">
 
 import { defineComponent } from 'vue'
 import CityList from '@/components/CityList/Index.vue'
 import Settings from '@/components/Settings/Index.vue'
-import {mapActions, mapMutations} from "vuex";
+import {mapActions} from "vuex";
 
 export default defineComponent({
   components: {
@@ -26,22 +26,9 @@ export default defineComponent({
   data:()=>{
     return {
       currentTabComponent: "CityList",
-      tabsArr:[
-        {
-          name:'CityList',
-          title:'CityItem List',
-          class:'weather-widget_city-list-btn'
-        },
-        {
-          name:'Settings',
-          title: 'Settings',
-          class:'weather-widget_settings-btn'
-        }
-      ],
     }
   },
   methods:{
-
       ...mapActions('weather',[
         'getCityListWeather',
       ]),
@@ -50,25 +37,35 @@ export default defineComponent({
   created() {
     this.getCityListWeather()
   },
-  computed: {
-
-  }
 });
 </script>
 
 <style  lang="scss">
+
 .weather-widget {
-  border: 1px solid;
-  border-radius: 5px;
-  padding: 10px;
 
   &_tab-list{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    &_item{
+    border-bottom: 1px solid $appBorderColor;
 
+    margin-bottom: 0.5rem ;
+
+
+    &_item{
+      border:none;
+      padding: 0.5rem 1rem;
+      margin: 0;
+      //background-color: $appAccentColor;
+      //color: white;
+      &:not(:last-child){
+        border-right: 1px solid $appTextColor;
     }
+      &:hover {
+      }
+    }
+
     &_item.settings{
     color: red;
     }
