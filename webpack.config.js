@@ -1,3 +1,6 @@
+const package = require('./package.json');
+const appName = package.name
+const appVersion = parseInt(package.version,10).toFixed(1)
 const path = require("path");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const {DefinePlugin} = require('webpack');
@@ -17,7 +20,7 @@ module.exports = ({mode}) => {
      mode: isProdMode ? 'production' : 'development',
       devtool: "source-map",
       output: {
-        filename: isProdMode ? '[contenthash:9].js' : '[name].js',
+        filename: `${appName}-${appVersion}${isProdMode ? '-[contenthash:7]':''}.js`,
         clean: true
       },
   devServer: {
@@ -35,13 +38,15 @@ module.exports = ({mode}) => {
       },
       {
         test: /\.(sa|sc|c)ss$/,
+
         use: [
-          isDevMode ? "style-loader" : MiniCssExtractPlugin.loader,
+          MiniCssExtractPlugin.loader ,
+          // "style-loader",
           "css-loader",
           "postcss-loader",
           {
             loader: "sass-loader",
-            // options: { additionalData: `@import "./src/scss/common/vars.scss";` }
+            options: { additionalData: `@import "./src/assets/scss/vars.scss";` }
           }
         ],
       },
@@ -76,7 +81,9 @@ module.exports = ({mode}) => {
   plugins: [
 
     new VueLoaderPlugin(),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin(
+        {  filename: `${appName}-${appVersion}${isProdMode ? '-[contenthash:7]':''}.css` }
+),
     new HtmlWebpackPlugin({
       template: './index.html',
       minify: isProdMode,

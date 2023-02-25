@@ -1,0 +1,15 @@
+.weather-widget {
+  //overflow: hidden;
+  border: 1px solid $appBorderColor;
+  //border-radius: 5px;
+  //background-color: $appBgColor;
+  //color:$appTextColor;
+
+
+  @media (min-width:300px) {
+    background: red;
+  }
+  @media (min-width:400px) {
+    background: dodgerblue;
+  }
+}

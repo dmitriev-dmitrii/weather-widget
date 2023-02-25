@@ -1,5 +1,5 @@
 
-$accentColor:dodgerblue;
+$appAccentColor:dodgerblue;
 
 .drag-list--active{
   & [draggable="true"] * {
@@ -8,14 +8,14 @@ $accentColor:dodgerblue;
 }
 
 .drag__item--drag-now {
-  outline:2px $accentColor solid ;
+  outline:2px $appAccentColor solid ;
   outline-offset: 1px;
 }
 
 .drag__item--target-now {
 
   transition:all .3s ease-in-out ;
-  outline:2px $accentColor solid ;
+  outline:2px $appAccentColor solid ;
   outline-offset: 1px;
   animation: drag-target .7s ease-in-out infinite;
 
@@ -23,11 +23,11 @@ $accentColor:dodgerblue;
 
 @keyframes drag-target {
   from {
-    outline:2px $accentColor dashed ;
+    outline:2px $appAccentColor dashed ;
     outline-offset: 1px;
   }
   to {
-    outline:2px $accentColor dotted ;
+    outline:2px $appAccentColor dotted ;
     outline-offset: 1px;
   }
 }
