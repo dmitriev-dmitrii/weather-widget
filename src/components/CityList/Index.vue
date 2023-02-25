@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="weather-widget__city_list">
 
     <div v-if="!sortedCityList.length">
 
@@ -35,3 +35,12 @@ export default defineComponent({
 
 });
 </script>
+
+<style  lang="scss">
+
+.weather-widget__city_list {
+  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+}
+</style>

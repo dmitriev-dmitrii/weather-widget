@@ -19,7 +19,6 @@ export default function (data : any ) : CityItem  {
             temperature:_get( data ,'main.temp' , 0),
             temperatureFeelsLike:_get ( data ,'main.feels_like' , 0),
             humidity:_get ( data ,'main.humidity' , 0),
-            windSpeed: _get( data ,'wind.speed' , 0),
             visibility: _get( data ,'visibility' , 0)
 
         }

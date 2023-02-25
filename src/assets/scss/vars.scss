@@ -1,25 +1,23 @@
 
 
+  $appTextColor: #636363;
+  $appTitleTextColor: #383838;
+  $accentColor:#2196f3 ;
 
-  $mainTextColor: black ;
-
-  $transparent:rgba(0,0,0,0) ;
-
-  $maxWidth: 900;
-  $minWidth: 320;
+  $appBgColor: #fff;
+  $appBorderColor: #e0e0e0;
+  $appBorderRadius:7px;
 
   $loadingColor: #ff6a00;
   $successColor: #39d353;
   $errorColor: #ff0033;
+  $transparent:rgba(0,0,0,0);
 
-  $appAccentColor:#2196f3 ;
+$maxWidth: 900;
+$minWidth: 320;
 
-  $appBgColor: #e1e1e1;
 
-  $appBorderColor: #e0e0e0;
-
-  $appTextColor: #636363;
-  $appTitleTextColor: #383838;
+$content-max-height: 200px;
 
   //
   //--weather-widget-background-color-primary: #ffffff;

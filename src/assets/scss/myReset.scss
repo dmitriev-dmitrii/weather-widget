@@ -1,8 +1,6 @@
-* {
+*{
   box-sizing: border-box;
-  font-size: 10px;
-  color:$mainTextColor ;
-  outline-color: $appAccentColor;
+  outline-color: $accentColor;
   outline-width: 0.3rem;
   outline-offset: 0.2rem;
 
@@ -12,12 +10,14 @@
   }
 
 }
-
+button {
+  cursor: pointer;
+}
 //a {
-//  color: $appAccentColor;
+//  color: $accentColor;
 //  text-decoration-color:$transparent;
 //  &:is(:hover,:focus ){
-//    text-decoration-color: $appAccentColor;
+//    text-decoration-color: $accentColor;
 //  }
 //  transition: text-decoration-color 0.2s ease-out;
 //}
@@ -75,11 +75,11 @@ input:focus:-ms-input-placeholder {
  //
  //details[open] {
  //    padding: .5em;
- //	 box-shadow:0 0 3px 2px $appAccentColor ;
+ //	 box-shadow:0 0 3px 2px $accentColor ;
  //}
  //
  //details[open] summary {
- //	box-shadow:0 0 3px 2px $appAccentColor inset;
+ //	box-shadow:0 0 3px 2px $accentColor inset;
  //    border-bottom: 1px solid currentColor;
  //    margin-bottom: .5em;
  //}

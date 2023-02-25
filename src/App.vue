@@ -1,13 +1,15 @@
 <template>
 
 <div class="weather-widget">
-  <div class="weather-widget_tab-list">
-    <button class="weather-widget_tab-list_item city-list" @click="currentTabComponent = 'CityList'">CityItem List</button>
-    <button class="weather-widget_tab-list_item settings" @click="currentTabComponent = 'Settings'"> S </button>
+  <div class="weather-widget__tab-list">
+    <button class="weather-widget__tab-list-item" :class="{'active' : currentTabComponent === 'CityList'}" @click="currentTabComponent = 'CityList'">CityItem List</button>
+    <button class="weather-widget__tab-list-item" :class="{'active' : currentTabComponent === 'Settings'}" @click="currentTabComponent = 'Settings'"> Settings </button>
   </div>
+  <div class="weather-widget__content">
   <keep-alive>
     <component v-bind:is="currentTabComponent" />
   </keep-alive>
+  </div>
 </div>
 
 </template>
@@ -44,31 +46,35 @@ export default defineComponent({
 
 .weather-widget {
 
-  &_tab-list{
+  &__tab-list{
     display: flex;
-    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid $appBorderColor;
 
-    margin-bottom: 0.5rem ;
-
-
-    &_item{
+    &-item{
       border:none;
       padding: 0.5rem 1rem;
       margin: 0;
-      //background-color: $appAccentColor;
-      //color: white;
-      &:not(:last-child){
-        border-right: 1px solid $appTextColor;
-    }
-      &:hover {
+      background: $appBgColor;
+
+      transition: all 0.2s ease;
+      &.active{
+        background-color: $accentColor;
+        color: $appBgColor;
       }
+      &:hover:not(.active) {
+        background-color: lighten($accentColor ,30);
+      }
+      //&:not(:last-child) {
+      //  border-right: 1px solid $transparent;
+      //}
     }
 
-    &_item.settings{
-    color: red;
-    }
+
+  }
+  &__content {
+    max-height: $content-max-height;
+    overflow: scroll;
 
   }
 

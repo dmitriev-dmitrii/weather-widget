@@ -1,40 +1,29 @@
 <template>
-<div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
-    <div>
-      <div>{{city.name}} [{{city.country}}]</div>
-      <div> last updated at : {{ city.lastUpdated }}</div>
+<div class="weather-widget__city_list-item">
+    <div class="weather-widget__city_list-item-about">
+      <span> [{{city.country}}] {{city.name}} </span>
+      <i> last updated at : {{ city.lastUpdated }}</i>
     </div>
 
-  <div>
     <div v-if="city.loading">  loading ... </div>
-    <div v-else>
-<!--      <figure>-->
-<!--      <img :src="`http://openweathermap.org/img/wn/${cityItem.weather.icon}@2x.png`" :alt="`${cityItem.name}weather-image`">-->
-<!--      <figcaption>-->
-<!--        {{cityItem.weather.description }}-->
-<!--      </figcaption>-->
-<!--      </figure>-->
-
-   <div>
+    <div class="weather-widget__city_list-item-weather" v-else>
+      <div class="weather-widget__city_list-item-weather-img-wrapper">
+        <img  @load="imgLoadHandle" loading="lazy"  :src="`http://openweathermap.org/img/wn/${weather.icon}@2x.png`" :alt="`${weather.description}weather-image`">
+        <i>{{weather.description }}</i>
+      </div>
+   <div class="weather-widget__city_list-item-weather-data">
      <div>
-     temperature : {{weather.temperature}} ℃
+     <span>temperature :</span>  {{weather.temperature}} ℃
      </div>
      <div>
-     feels like :  {{weather.temperatureFeelsLike}} ℃
+     <span> feels like :</span>   {{weather.temperatureFeelsLike}} ℃
    </div>
      <div>
-     visibility {{ weather.visibility  }} km
+     <span>visibility :</span> {{ weather.visibility  }} km
     </div>
    </div>
     </div>
-
-  </div>
-
 </div>
-  <hr>
-
-    
-
 
 <!-- 
   <div>
@@ -66,6 +55,15 @@ export default defineComponent({
       // default:()=>{return {}}
     },
   },
+  methods:{
+    imgLoadHandle:function (event:any) {
+      if (event.type ===  "load") {
+        event.target.classList.add('loaded')
+        return
+      }
+
+    }
+  },
   setup(props) {
     
     const city = _pick (props.cityItem , ['name' ,
@@ -91,6 +89,65 @@ export default defineComponent({
 });
 </script>
 
-<style>
+<style lang="scss">
+.weather-widget__city_list-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem  1rem 0.25rem 0.5rem ;
+  &:not(:last-child) {
+    border-bottom: 1px solid $appBorderColor;
+  }
+  &-about,
+  &-weather {
+    display: flex;
 
+  }
+  &-about {
+    flex-direction: column;
+    justify-content: space-between;
+    & span {
+      font-weight: bold;
+      color: $appTitleTextColor;
+    }
+  }
+  &-weather {
+    margin-left: 2rem;
+    flex: 1;
+    align-items: stretch;
+    justify-content: flex-end;
+    &-data {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-width: 10rem;
+      & div {
+        // div - its data-item
+        display: flex;
+        justify-content: space-between;
+      }
+      & span {
+        // span - its title
+        font-weight: bold;
+      }
+    }
+    &-img-wrapper {
+      margin:0  2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-end;
+      & img {
+        object-fit: cover;
+        max-height: 100%;
+        max-width: 3rem;
+        opacity: 0;
+        transition: all 0.3s linear;
+      }
+      & img.loaded{
+        opacity: 1;
+      }
+
+    }
+  }
+}
 </style>

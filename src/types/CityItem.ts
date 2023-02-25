@@ -13,7 +13,6 @@ type CityItem  = {
         temperatureFeelsLike:number,
         humidity:number
         description:string,
-        windSpeed:string,
         visibility:number
 
     }
