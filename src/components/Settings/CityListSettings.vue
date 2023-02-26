@@ -1,13 +1,13 @@
 <template>
 
-<div ref="settings-city-list" class="drag-list">
-      <div draggable="true" :data-id="item.id" :data-order="item.order" v-for="item in sortedCityList" :key="item.id"  style="display: flex; justify-content: space-between; margin: 1rem 0">
+<div ref="settings-city-list" class="weather-widget__settings-city-list">
+      <div class="weather-widget__settings-city-list__item" draggable="true" :data-id="item.id" :data-order="item.order" v-for="item in sortedCityList" :key="item.id" >
 
-        <button class="drag__item-activator"> {{item.order}} </button>
+        <button title="change city order " class="weather-widget__settings-city-list__item-drag-activator"> {{item.order}} </button>
 
-        <div draggable="true" style="width: 100%; background-color: #3333;">
-          <div>{{item.name}} [{{item.country}}]</div>
-          <button type="button" @click="removeCityFromList(item)">remove</button>
+        <div draggable="true" class="weather-widget__settings-city-list__item-content">
+          <div>[{{item.country}}] {{item.name}} </div>
+          <button class="weather-widget__settings-city-list__item-remove" type="button" @click="removeCityFromList(item)">remove</button>
         </div>
       </div>
 </div>
@@ -32,7 +32,6 @@ export default defineComponent({
     ]),
   },
   mounted() {
-
     dragDropOrders ( this.$refs["settings-city-list"] , this.swapCityListOrders )
   }
 
@@ -41,7 +40,31 @@ export default defineComponent({
 
 <style lang="scss">
 @import "utils/dragDropOrders";
-.drag__item-activator {
-  cursor: grab;
+
+.weather-widget__settings-city-list {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0 ;
+
+  &__item {
+    display: flex;
+    margin: 0.25rem ;
+    overflow: hidden;
+    border-radius: $appBorderRadius;
+    border: 1px solid $appBorderColor;
+
+    &-content{
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      padding:0.5rem 1rem;
+    }
+    &-drag-activator {
+      cursor: grab;
+    }
+  }
+
 }
+
+
 </style>

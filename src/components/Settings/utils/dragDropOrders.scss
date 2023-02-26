@@ -1,34 +1,33 @@
 
-$appAccentColor:dodgerblue;
+
+$outline-width:2px;
 
 .drag-list--active{
   & [draggable="true"] * {
     pointer-events: none;
+    transition:all .3s ease-in-out ;
   }
 }
 
 .drag__item--drag-now {
-  outline:2px $appAccentColor solid ;
-  outline-offset: 1px;
+  outline:$outline-width $accentColor solid ;
+  outline-offset: -$outline-width;
 }
 
 .drag__item--target-now {
-
-  transition:all .3s ease-in-out ;
-  outline:2px $appAccentColor solid ;
-  outline-offset: 1px;
+  outline:$outline-width $accentColor solid ;
+  outline-offset: $outline-width;
   animation: drag-target .7s ease-in-out infinite;
-
 }
 
 @keyframes drag-target {
   from {
-    outline:2px $appAccentColor dashed ;
-    outline-offset: 1px;
+    outline:$outline-width $accentColor dashed ;
+     outline-offset: -$outline-width;
   }
   to {
-    outline:2px $appAccentColor dotted ;
-    outline-offset: 1px;
+    outline:$outline-width $accentColor dotted ;
+     outline-offset: -$outline-width;
   }
 }
 
