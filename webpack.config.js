@@ -37,6 +37,10 @@ module.exports = ({mode}) => {
         loader: 'vue-loader'
       },
       {
+            test: /\.svg$/,
+            use: "svg-sprite-loader"
+      },
+      {
         test: /\.(sa|sc|c)ss$/,
 
         use: [
