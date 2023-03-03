@@ -1,11 +1,10 @@
-import {weatherApi} from "@/api";
-
-import _findIndex from 'lodash/findIndex';
 
 import CityItem from "@/types/CityItem";
+import {weatherApi} from "@/api";
+import _findIndex from 'lodash/findIndex';
 import localStorageCityList from "@/utils/localStorageCityList";
 import cityItemResponseParser from "@/utils/cityItemResponseParser";
-
+import _get from "lodash/get";
 
 export default {
     namespaced: true,
@@ -85,10 +84,16 @@ else {
 
         },
 
-        findByCityName:async function (context:any,payload:string)  {
+        findByCityName:async function (context:any,payload:string):Promise<CityItem[]>  {
+            try {
+            const res = await weatherApi.getByCityName(payload);
+            const data :CityItem[] =  _get(res,'data.list',[]).map(cityItemResponseParser)
+            return data;
 
-            return  await weatherApi.getByCityName(payload);
-
+            }
+            catch (err:any) {
+                return err
+            }
         },
 
         getCityListWeather:async function (context:any )  {

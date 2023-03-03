@@ -1,16 +1,16 @@
 <template>
-  <form @submit.prevent="sendSearchRequest">
+  <form @submit.prevent="sendSearchHandle">
 
     <fieldset>
       <legend>add location</legend>
 
-    <input v-model="searchQuery" @input="sendSearchRequest" type="search"/>
+    <input v-model="form.searchQuery" @input="sendSearchHandle" type="search"/>
 
-      <div  v-show=searchQuery :class="{'active': searchQuery }">
+      <div  v-show=form.searchQuery :class="{'active': form.searchQuery }">
 
-        <div v-show="formLoading"> loading... </div>
+        <div v-show="form.loading"> form.loading... </div>
 
-        <div v-if="!formLoading && searchResult.length ">
+        <div v-if="!form.loading && searchResult.length ">
 
           <div v-for="(item,index) in searchResult" :key="item.id">
             {{item.name}} [{{item.country}}]  {{item.weather.temperature}} ℃
@@ -20,7 +20,7 @@
         </div>
 
         <div v-else>
-          {{ formMessage }}
+          {{ form.message }}
         </div>
 
       </div>
@@ -33,95 +33,82 @@
 
 <script lang="ts">
 
-import {mapActions, mapMutations} from "vuex";
+import {useStore} from "vuex";
 import _debounce from 'lodash/debounce';
 import _get from 'lodash/get';
 import cityItemResponseParser from '@/utils/cityItemResponseParser';
-import {defineComponent} from "vue";
+import {defineComponent, reactive, ref, toRefs} from "vue";
 import CityItem from "@/types/CityItem";
+import store from "@/store";
 export default defineComponent({
   name: "FindAndAddCity",
-  data:()=>{
-   return {
-       searchQuery:'',
-       searchResult :[] ,
-       formLoading:false,
-       formMessage:''
-   }
-  },
-  methods:{
-    ...mapActions('weather', [
-      'findByCityName',
-    ]),
-    ...mapMutations('weather', [
-      'addOrUpdateCity',
-    ]),
 
-    sendSearchRequest : async function () {
+setup() {
+    let form = reactive(
+        {
+          searchQuery: '',
+          message: '',
+          loading: false
+        })
+    const searchResult: any = ref([]);
+    const store = useStore();
+    const sendSearchRequest = async () => {
       try {
 
-        if (!this.searchQuery) {
+        if (!form.searchQuery) {
           return;
         }
 
-        if (/[0-9]/.test(this.searchQuery)) {
-          this.formMessage = 'No numbers in search'
+        if (/[0-9]/.test(form.searchQuery)) {
+          form.message = 'No numbers in search'
           return
         }
 
-        this.formLoading = true
-        this.searchResult = []
-        this.formMessage = ''
+        form.loading = true
+        form.message = ''
+        searchResult.value = []
+        searchResult.value = await store.dispatch('weather/findByCityName', form.searchQuery);
 
-        const res :any = await this.findByCityName( this.searchQuery ) ;
+        if (!searchResult.value.length) {
+          form.message = `city '${form.searchQuery}' not found`
+        }
 
-        this.searchResult =   _get(res,'data.list',[]).map(cityItemResponseParser);
+      } catch (err: any) {
 
-         if ( !this.searchResult.length) {
-           this.formMessage = `city '${this.searchQuery}' not found`
-         }
+        console.log(err);
 
-      } catch (err : any) {
+        const errStatus: any = _get(err, 'response.status', 500)
 
-       console.log(err);
-
-        const errStatus : any =  _get( err ,'response.status' , 0 )
-
-        if (( errStatus === 404)|| ( errStatus === 400)  ) {
-          this.formMessage = `city '${this.searchQuery}' not found`
+        if ((errStatus === 404) || (errStatus === 400)) {
+          form.message = `city '${form.searchQuery}' not found`
           return
         }
 
         if (errStatus >= 500) {
-          this.formMessage = 'server error, please try later'
+          form.message = 'server error, please try later'
           return
         }
 
-        if (errStatus)
-        {
-          this.formMessage = `error code ${errStatus} , contact technical support`
-        return
+        if (errStatus) {
+          form.message = `error code ${errStatus} , contact technical support`
+          return
         }
-          this.formMessage = `undefined error , contact technical support`
+        form.message = `undefined error , contact technical support`
 
+      } finally {
+        form.loading = false
       }
+    }
 
-      finally {
-        this.formLoading = false
-      }
+    const  sendSearchHandle   = _debounce( sendSearchRequest,1000 )
 
-    },
-    addCity : function (index :number) {
+  const addCity = (index :number) => {
+    if ( index >= 0) {
+      store.commit( 'weather/addOrUpdateCity',( searchResult.value[index] ))
+    }
+  }
 
-      this.addOrUpdateCity( this.searchResult[index] )
-
-    },
-
-  },
-  async created() {
-
-    // this.sendSearchRequest  =  _debounce  ( this.sendSearchRequest , 1000)
-
+    return {form, searchResult, sendSearchHandle,addCity}
   }
 })
 </script>

@@ -1,10 +1,8 @@
 import weather from "@/store/weather";
+import { GetterTree, MutationTree, ActionTree } from "vuex"
+
 export default {
-  state: {},
-  getters: {},
-  mutations: {},
-  actions: {},
   modules: {
-    weather
-  },
-};
+    weather: weather,
+  }
+}
