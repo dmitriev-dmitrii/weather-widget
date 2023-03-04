@@ -3,17 +3,18 @@
 <div ref="settings-city-list" class="weather-widget__settings-city-list">
       <div class="weather-widget__settings-city-list__item" draggable="true" :data-id="item.id" :data-order="item.order" v-for="item in sortedCityList" :key="item.id" >
 
-        <button title="change city order " class="weather-widget__settings-city-list__item-drag-activator">
+        <app-button title="change city order " class="weather-widget__settings-city-list__item-drag-activator">
           <svg class="icon" aria-hidden="true">
           <use xlink:href="#drag-drop-up-down"></use>
         </svg>
-        </button>
+        </app-button>
 
         <div draggable="true" class="weather-widget__settings-city-list__item-content">
           <div>[{{item.country}}] {{item.name}} </div>
-          <button class="weather-widget__settings-city-list__item-remove" type="button" @click="removeCityFromList(item)">    <svg class="icon" aria-hidden="true">
+          <app-button class="weather-widget__settings-city-list__item-remove" type="button" @click="removeCityFromList(item)">    <svg class="icon" aria-hidden="true">
             <use xlink:href="#delete-basket"></use>
-          </svg></button>
+          </svg>
+          </app-button>
         </div>
       </div>
 </div>
@@ -23,9 +24,11 @@
 import { defineComponent } from "vue";
 import { mapGetters, mapMutations} from "vuex";
 import dragDropOrders from "./utils/dragDropOrders";
+import AppButton from "@/components/UI/AppButton.vue";
 
 export default defineComponent({
   name: "CityListSettings",
+  components: {AppButton},
   computed:{
     ...mapGetters('weather',[
       'sortedCityList',
@@ -76,6 +79,7 @@ export default defineComponent({
       justify-content: center;
       align-items: center;
       padding: 0.25rem;
+
       & > svg {
         transition:all 0.2s ease;
       }
@@ -85,13 +89,16 @@ export default defineComponent({
       height: 100%;
       cursor: grab;
       border: 0;
+      border:none;
       border-right: 1px solid $appBorderColor ;
-      & > svg {
+      border-radius: 0;
+
+      &  svg {
         height: 1.5rem;
         width: 1.5rem;
       }
       &:hover {
-        & > svg {
+        &  svg {
           fill: $accentColor;
         }
       }
@@ -99,12 +106,15 @@ export default defineComponent({
     &-remove {
       border: 1px solid $appBorderColor ;
       border-radius: $appBorderRadius;
-      & > svg {
+
+      &  svg {
+        margin-top:0.25rem ;
         height: 1.25rem;
-        width: 1.5rem;
+        width: 1.25rem;
       }
       &:hover {
-        & > svg {
+        border: 1px solid $errorColor ;
+        &  svg {
           fill: $errorColor;
         }
       }

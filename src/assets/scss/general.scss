@@ -5,7 +5,9 @@
   background-color: $appBgColor;
   color:$appTextColor;
 
-  font-size: 1rem;
+ & * {
+   font-size: 15px;
+ }
 
   @media (min-width:300px) {
     //background: red;

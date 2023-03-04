@@ -50,7 +50,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     border-bottom: 1px solid $appBorderColor;
-
+    background: lighten($appTextColor,60);
     &-item{
       border:none;
       padding: 0.5rem 1rem;
@@ -70,12 +70,10 @@ export default defineComponent({
       //}
     }
 
-
   }
   &__content {
-    max-height: $content-max-height;
+    max-height: #{$content-max-height}px;
     overflow: scroll;
-
   }
 
 }

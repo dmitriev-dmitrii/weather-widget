@@ -63,7 +63,6 @@ else {
     actions: {
         addCityByUserLocation: async function (context:any ){
 
-
                 const geoData:any = await   new Promise((resolve, reject) : any => {
                     const  successCallBack = (geoData:any) => {
                         resolve(geoData.coords)
